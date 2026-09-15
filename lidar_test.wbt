@@ -1,0 +1,230 @@
+#VRML_SIM R2025a utf8
+
+WorldInfo {
+  basicTimeStep 32
+}
+
+Viewpoint {
+  orientation 0.92 0.38 0.08 1.18
+  position 7.5 6.5 7.5
+}
+
+TexturedBackground {
+  texture "backgrounds/empty.png"
+}
+
+TexturedBackgroundLight {
+}
+
+Floor {
+  size 12 10
+}
+# ROOM WALLS
+
+Solid {
+  translation 0 5 1
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.7 0.7 0.7
+        roughness 0.8
+      }
+      geometry Box {
+        size 12 0.2 2
+      }
+    }
+  ]
+  boundingObject Box {
+    size 12 0.2 2
+  }
+}
+
+Solid {
+  translation 0 -5 1
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.7 0.7 0.7
+        roughness 0.8
+      }
+      geometry Box {
+        size 12 0.2 2
+      }
+    }
+  ]
+  boundingObject Box {
+    size 12 0.2 2
+  }
+}
+
+Solid {
+  translation -6 0 1
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.7 0.7 0.7
+        roughness 0.8
+      }
+      geometry Box {
+        size 0.2 10 2
+      }
+    }
+  ]
+  boundingObject Box {
+    size 0.2 10 2
+  }
+}
+
+Solid {
+  translation 6 0 1
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.7 0.7 0.7
+        roughness 0.8
+      }
+      geometry Box {
+        size 0.2 10 2
+      }
+    }
+  ]
+  boundingObject Box {
+    size 0.2 10 2
+  }
+}
+# OBSTACLE 1
+
+Solid {
+  translation 2.5 1.5 0.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.2 0.5 0.8
+        roughness 0.5
+      }
+      geometry Box {
+        size 1.2 2.0 1.0
+      }
+    }
+  ]
+  boundingObject Box {
+    size 1.2 2.0 1.0
+  }
+}
+# OBSTACLE 2
+
+Solid {
+  translation -2.5 -1.5 0.75
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.8 0.3 0.2
+        roughness 0.5
+      }
+      geometry Box {
+        size 2.0 1.0 1.5
+      }
+    }
+  ]
+  boundingObject Box {
+    size 2.0 1.0 1.5
+  }
+}
+# OBSTACLE 3
+
+Solid {
+  translation 0 -3 0.4
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.2 0.7 0.3
+        roughness 0.5
+      }
+      geometry Box {
+        size 2.5 0.8 0.8
+      }
+    }
+  ]
+  boundingObject Box {
+    size 2.5 0.8 0.8
+  }
+}
+# ROBOT
+
+Robot {
+  translation 0 0 0.15
+  name "LidarRobot"
+  controller "lidar_test"
+
+  children [
+
+    # Robot body
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.15 0.15 0.15
+        roughness 0.5
+        metalness 0.2
+      }
+      geometry Cylinder {
+        radius 0.35
+        height 0.25
+      }
+    }
+    # LIDAR
+
+
+    Lidar {
+      name "lidar"
+      translation 0 0 0.25
+
+      horizontalResolution 500
+      numberOfLayers 1
+
+      fieldOfView 6.283185
+      verticalFieldOfView 0.01
+
+      minRange 0.05
+      maxRange 12.0
+
+      resolution 0.001
+
+      type "rotating"
+      projection "cylindrical"
+
+      defaultFrequency 10
+      minFrequency 1
+      maxFrequency 25
+
+      noise 0.0
+
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.05 0.05 0.05
+            roughness 0.4
+            metalness 0.5
+          }
+          geometry Cylinder {
+            radius 0.08
+            height 0.05
+          }
+        }
+      ]
+    }
+
+  ]
+
+  boundingObject Cylinder {
+    radius 0.35
+    height 0.25
+  }
+}
+
+# LIGHT
+
+
+PointLight {
+  location 0 0 6
+  intensity 2
+  color 1 1 1
+}
